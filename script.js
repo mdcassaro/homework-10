@@ -57,10 +57,29 @@ var connection = mysql.createConnection({
       connection.query("SELECT * FROM department;", function(err, res){
           if (err) throw err
           for (var i = 0; i < res.length; i++) {
-            console.log("Department: " + res[i].id + " || Department: " + res[i].name);
+            console.log("I.D.: " + res[i].id + " || Department: " + res[i].name);
           }
       })
   }
+
+  
+  function roleSearch(){
+    connection.query("SELECT * FROM roleTable;", function(err, res){
+        if (err) throw err
+        for (var i = 0; i < res.length; i++) {
+          console.log("I.D.: " + res[i].id + " || Title: " + res[i].title + " || Salary: " + res[i].salary + " || Department I.D.: " + res[i].department_id);
+        }
+    })
+}
+
+function propmtNewEmployee(){
+    connection.query("SELECT * FROM employee;", function(err, res){
+        if (err) throw err
+        for (var i = 0; i < res.length; i++) {
+          console.log("I.D.: " + res[i].id + " || Title: " + res[i].title + " || Salary: " + res[i].salary + " || Department I.D.: " + res[i].department_id);
+        }
+    })
+}
 
 
 
@@ -82,23 +101,23 @@ var connection = mysql.createConnection({
 //       });
 //   }
 
-  function roleSearch() {
-    inquirer
-      .prompt({
-        name: "role",
-        type: "input",
-        message: "What role would you like to search for by I.D.?"
-      })
-      .then(function(answer) {
-        var query = "SELECT title, salary, department_id FROM roleTable WHERE ?";
-        connection.query(query, { id: answer.id }, function(err, res) {
-          for (var i = 0; i < res.length; i++) {
-            console.log("ID: " + res[i].id + res[i].title);
-          }
-          runSearch();
-        });
-      });
-  }
+//   function roleSearch() {
+//     inquirer
+//       .prompt({
+//         name: "role",
+//         type: "input",
+//         message: "What role would you like to search for by I.D.?"
+//       })
+//       .then(function(answer) {
+//         var query = "SELECT title, salary, department_id FROM roleTable WHERE ?";
+//         connection.query(query, { id: answer.id }, function(err, res) {
+//           for (var i = 0; i < res.length; i++) {
+//             console.log("ID: " + res[i].id + res[i].title);
+//           }
+//           runSearch();
+//         });
+//       });
+//   }
 
   function employeeSearch() {
     inquirer
