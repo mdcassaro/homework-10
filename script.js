@@ -56,11 +56,11 @@ var connection = mysql.createConnection({
       .prompt({
         name: "department",
         type: "input",
-        message: "What department would you like to search for?"
+        message: "What department would you like to search for by I.D.?"
       })
       .then(function(answer) {
-        var query = "SELECT id FROM department WHERE ?";
-        connection.query(query, { name: answer.name }, function(err, res) {
+        var query = "SELECT name FROM department WHERE ?";
+        connection.query(query, { id: answer.id }, function(err, res) {
           for (var i = 0; i < res.length; i++) {
             console.log("ID: " + res[i].id + res[i].name);
           }
@@ -74,11 +74,11 @@ var connection = mysql.createConnection({
       .prompt({
         name: "role",
         type: "input",
-        message: "What role would you like to search for?"
+        message: "What role would you like to search for by I.D.?"
       })
       .then(function(answer) {
-        var query = "SELECT id, salary, department_id FROM roleTable WHERE ?";
-        connection.query(query, { title: answer.title }, function(err, res) {
+        var query = "SELECT title, salary, department_id FROM roleTable WHERE ?";
+        connection.query(query, { id: answer.id }, function(err, res) {
           for (var i = 0; i < res.length; i++) {
             console.log("ID: " + res[i].id + res[i].title);
           }
