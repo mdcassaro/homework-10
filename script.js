@@ -105,3 +105,68 @@ var connection = mysql.createConnection({
       });
   }
 
+  function propmtNewEmployee(){
+      inquirer
+      .prompt({
+          name: "newEmployee",
+          type: "list",
+          message: "Would you like to add a new employee?",
+          choices: ["Yes", "No"]
+
+      })
+      if(answer.newEmployee === "Yes"){
+          addEmployee()
+      }else{
+          connection.end()
+      }
+
+  }
+
+
+  function addEmployee(answer){
+     inquirer
+     .prompt([
+         {
+            name: "employeeFirstName",
+            type: "input",
+            message: "What is the new Employees First Name?"
+        },
+        {
+            name: "employeeLastName",
+            type: "input",
+            message: "What is the new Employees last name?"
+        },
+        {
+            name: "employeeRole",
+            type: "input",
+            message: "What is the new employees role?"
+        },
+        {
+            name: "employeeManagerId",
+            type: "Input",
+            message:" What is the I.D.of tfro the Manager of the new employee ?"
+        }
+         
+     ])
+     .then (function(answer){
+         connection.query(
+             "INSERT INTO employee SET ?",
+             {
+                 first_name: answer.employeeFirstName,
+                 last_name: answer.employeeLastName,
+                 role: answer.employeeRole,
+                 manager_id: answer.employeeManagerId
+             },
+             function(err) {
+                if (err) throw err;
+                console.log("Your employee was created successfully!");
+                // re-prompt the user for if they want to bid or post
+                
+
+             }
+         )
+     })
+
+    
+
+  }
