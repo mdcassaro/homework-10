@@ -27,23 +27,23 @@ var connection = mysql.createConnection({
         type: "rawlist",
         message: "What would you like to view?",
         choices: [
-          "Find departments?",
-          "Find roles?",
-          "Find employees?",
+          "See departments?",
+          "See roles?",
+          "See employees?",
           "Enter a new Employee?"
           
         ]
       })
       .then(function(answer) {
         // based on their answer, either call the bid or the post functions
-        if (answer.postOrBid === "Find departments?") {
+        if (answer.search === "See departments?") {
             departmentSearch();
         }
-        else if(answer.postOrBid === "Find roles?") {
+        else if(answer.search === "See roles?") {
             roleSearch();
-        } else if(answer.postOrBid === "Find employees?") {
+        } else if(answer.search === "See employees?") {
             employeeSearch();
-        }else if(answer.postOrBid === "Enter a new Employee?") {
+        }else if(answer.search === "Enter a new Employee?") {
             propmtNewEmployee();
         }else{
             connection.end();
@@ -53,23 +53,34 @@ var connection = mysql.createConnection({
   }
 
 
-  function departmentSearch() {
-    inquirer
-      .prompt({
-        name: "department",
-        type: "input",
-        message: "What department would you like to search for by I.D.?"
-      })
-      .then(function(answer) {
-        var query = "SELECT name FROM department WHERE ?";
-        connection.query(query, { id: answer.id }, function(err, res) {
+  function departmentSearch(){
+      connection.query("SELECT * FROM department;", function(err, res){
+          if (err) throw err
           for (var i = 0; i < res.length; i++) {
-            console.log("ID: " + res[i].id + res[i].name);
+            console.log("Department: " + res[i].id + " || Department: " + res[i].name);
           }
-          runSearch();
-        });
-      });
+      })
   }
+
+
+
+//   function departmentSearch() {
+//     inquirer
+//       .prompt({
+//         name: "department",
+//         type: "input",
+//         message: "What department would you like to search for by I.D.?"
+//       })
+//       .then(function(answer) {
+//         var query = "SELECT name FROM department WHERE ?";
+//         connection.query(query, { id: answer.id }, function(err, res) {
+//           for (var i = 0; i < res.length; i++) {
+//             console.log("ID: " + res[i].id + res[i].name);
+//           }
+//           runSearch();
+//         });
+//       });
+//   }
 
   function roleSearch() {
     inquirer
