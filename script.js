@@ -72,11 +72,11 @@ var connection = mysql.createConnection({
     })
 }
 
-function propmtNewEmployee(){
+function employeeSearch(){
     connection.query("SELECT * FROM employee;", function(err, res){
         if (err) throw err
         for (var i = 0; i < res.length; i++) {
-          console.log("I.D.: " + res[i].id + " || Title: " + res[i].title + " || Salary: " + res[i].salary + " || Department I.D.: " + res[i].department_id);
+          console.log("I.D.: " + res[i].id + " || First Name: " + res[i].first_name + " || Last Name: " + res[i].last_name + " || Manager I.D.: " + res[i].manager_id);
         }
     })
 }
@@ -119,23 +119,23 @@ function propmtNewEmployee(){
 //       });
 //   }
 
-  function employeeSearch() {
-    inquirer
-      .prompt({
-        name: "role",
-        type: "input",
-        message: "Search for Employee by I.D.?"
-      })
-      .then(function(answer) {
-        var query = "SELECT first_name, last_name, role_id, manager_id FROM employee WHERE ?";
-        connection.query(query, { id: answer.id }, function(err, res) {
-          for (var i = 0; i < res.length; i++) {
-            console.log("ID: " +res[i].id);
-          }
-          runSearch();
-        });
-      });
-  }
+//   function employeeSearch() {
+//     inquirer
+//       .prompt({
+//         name: "role",
+//         type: "input",
+//         message: "Search for Employee by I.D.?"
+//       })
+//       .then(function(answer) {
+//         var query = "SELECT first_name, last_name, role_id, manager_id FROM employee WHERE ?";
+//         connection.query(query, { id: answer.id }, function(err, res) {
+//           for (var i = 0; i < res.length; i++) {
+//             console.log("ID: " +res[i].id);
+//           }
+//           runSearch();
+//         });
+//       });
+//   }
 
   function propmtNewEmployee(){
       inquirer
