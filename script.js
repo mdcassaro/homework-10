@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
     user: "root",
   
     // Your password
-    password: "employee_tracker_DB_password",
+    password: "515Blank",
     database: "employee_tracker_DB"
   });
 
@@ -30,24 +30,26 @@ var connection = mysql.createConnection({
           "Find departments?",
           "Find roles?",
           "Find employees?",
+          "Enter a new Employee?"
           
         ]
       })
       .then(function(answer) {
-        switch (answer.action) {
-        case "Find departments?":
-          departmentSearch();
-          break;
-  
-        case "Find roles?":
-          roleSearch();
-          break;
-  
-        case "Find employees?":
-          employeeSearch();
-          
+        // based on their answer, either call the bid or the post functions
+        if (answer.postOrBid === "Find departments?") {
+            departmentSearch();
+        }
+        else if(answer.postOrBid === "Find roles?") {
+            roleSearch();
+        } else if(answer.postOrBid === "Find employees?") {
+            employeeSearch();
+        }else if(answer.postOrBid === "Enter a new Employee?") {
+            propmtNewEmployee();
+        }else{
+            connection.end();
         }
       });
+  
   }
 
 
