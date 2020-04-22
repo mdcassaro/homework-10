@@ -44,7 +44,7 @@ var connection = mysql.createConnection({
         } else if(answer.search === "See employees?") {
             employeeSearch();
         }else if(answer.search === "Enter a new Employee?") {
-            propmtNewEmployee();
+            addEmployee();
         }else{
             connection.end();
         }
@@ -83,79 +83,12 @@ function employeeSearch(){
 
 
 
-//   function departmentSearch() {
-//     inquirer
-//       .prompt({
-//         name: "department",
-//         type: "input",
-//         message: "What department would you like to search for by I.D.?"
-//       })
-//       .then(function(answer) {
-//         var query = "SELECT name FROM department WHERE ?";
-//         connection.query(query, { id: answer.id }, function(err, res) {
-//           for (var i = 0; i < res.length; i++) {
-//             console.log("ID: " + res[i].id + res[i].name);
-//           }
-//           runSearch();
-//         });
-//       });
-//   }
+//   
 
-//   function roleSearch() {
-//     inquirer
-//       .prompt({
-//         name: "role",
-//         type: "input",
-//         message: "What role would you like to search for by I.D.?"
-//       })
-//       .then(function(answer) {
-//         var query = "SELECT title, salary, department_id FROM roleTable WHERE ?";
-//         connection.query(query, { id: answer.id }, function(err, res) {
-//           for (var i = 0; i < res.length; i++) {
-//             console.log("ID: " + res[i].id + res[i].title);
-//           }
-//           runSearch();
-//         });
-//       });
-//   }
-
-//   function employeeSearch() {
-//     inquirer
-//       .prompt({
-//         name: "role",
-//         type: "input",
-//         message: "Search for Employee by I.D.?"
-//       })
-//       .then(function(answer) {
-//         var query = "SELECT first_name, last_name, role_id, manager_id FROM employee WHERE ?";
-//         connection.query(query, { id: answer.id }, function(err, res) {
-//           for (var i = 0; i < res.length; i++) {
-//             console.log("ID: " +res[i].id);
-//           }
-//           runSearch();
-//         });
-//       });
-//   }
-
-  function propmtNewEmployee(){
-      inquirer
-      .prompt({
-          name: "newEmployee",
-          type: "list",
-          message: "Would you like to add a new employee?",
-          choices: ["Yes", "No"]
-
-      })
-      if(answer.newEmployee === "Yes"){
-          addEmployee()
-      }else{
-          connection.end()
-      }
-
-  }
+  
 
 
-  function addEmployee(answer){
+  function addEmployee(){
      inquirer
      .prompt([
          {
@@ -186,12 +119,12 @@ function employeeSearch(){
              {
                  first_name: answer.employeeFirstName,
                  last_name: answer.employeeLastName,
-                 role: answer.employeeRole,
+                 role_id: answer.employeeRole,
                  manager_id: answer.employeeManagerId
              },
              function(err) {
                 if (err) throw err;
-                console.log("Your employee was created successfully!");
+                console.log("Your employee was not created successfully!");
                 // re-prompt the user for if they want to bid or post
                 
 
