@@ -11,3 +11,4 @@
   # Accomplished
   
   Departments, roles, and employees can be viewed from the Database.
+   Departments, roles, and employees can be altered from the command line to the Database.
