@@ -30,7 +30,9 @@ var connection = mysql.createConnection({
           "See departments?",
           "See roles?",
           "See employees?",
-          "Enter a new Employee?"
+          "Enter a new Employee?",
+          "Enter a new Role?",
+          "Enter a new Department?"
           
         ]
       })
@@ -45,7 +47,13 @@ var connection = mysql.createConnection({
             employeeSearch();
         }else if(answer.search === "Enter a new Employee?") {
             addEmployee();
-        }else{
+        }else if(answer.search === "Enter a new Role?") {
+            addRole();
+        }else if(answer.search === "Enter a new Department?") {
+            addDepartment();
+        }
+        
+        else{
             connection.end();
         }
       });
@@ -104,7 +112,7 @@ function employeeSearch(){
         {
             name: "employeeRole",
             type: "input",
-            message: "What is the new employees role?"
+            message: "What is the new employees role I.D.?"
         },
         {
             name: "employeeManagerId",
@@ -124,7 +132,7 @@ function employeeSearch(){
              },
              function(err) {
                 if (err) throw err;
-                console.log("Your employee was not created successfully!");
+                console.log("Your employee was created successfully!");
                 // re-prompt the user for if they want to bid or post
                 
 
@@ -135,3 +143,80 @@ function employeeSearch(){
     
 
   }
+
+  function addDepartment(){
+    inquirer
+    .prompt([
+        {
+           name: "departmentName",
+           type: "input",
+           message: "What is the new department name?"
+       },
+      
+        
+    ])
+    .then (function(answer){
+        connection.query(
+            "INSERT INTO department SET ?",
+            {
+                name: answer.departmentName,
+                
+            },
+            function(err) {
+               if (err) throw err;
+               console.log("Your department was created successfully!");
+               // re-prompt the user for if they want to bid or post
+               
+
+            }
+        )
+    })
+
+   
+
+ }
+
+ 
+ function addRole(){
+    inquirer
+    .prompt([
+        {
+           name: "roleTitle",
+           type: "input",
+           message: "What is the title of the new role?"
+       },
+       {
+           name: "roleSalary",
+           type: "input",
+           message: "What is the salary of the new role?"
+       },
+       {
+           name: "RoleDepartmentId",
+           type: "input",
+           message: "What is the  I.D. og the new role?"
+       },
+     
+        
+    ])
+    .then (function(answer){
+        connection.query(
+            "INSERT INTO roleTable SET ?",
+            {
+                title: answer.roleTitle,
+                salary: answer.roleSalary,
+                department_id: answer.RoleDepartmentId,
+                
+            },
+            function(err) {
+               if (err) throw err;
+               console.log("Your role was created successfully!");
+               // re-prompt the user for if they want to bid or post
+               
+
+            }
+        )
+    })
+
+   
+
+ }
